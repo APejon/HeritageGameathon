@@ -11,6 +11,7 @@ public class CharacterMovement : MonoBehaviour
     public SpriteRenderer CharacterSpriteRenderer;
     private Camera cam;
     private Vector3 targetPosition;
+    private bool isMoving;
 
 
     private void Awake()
@@ -21,39 +22,55 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        Vector3 dir;
-        if (Keyboard.current.dKey.wasPressedThisFrame)
+
+        if (isMoving == false)
         {
-            dir = Vector3.right - Vector3.forward;
-            dir.Normalize();
-            CharacterSpriteRenderer.sprite = walkRightSprite;
-            targetPosition = transform.position + dir * 1.75f;
+            Vector3 dir;
+            if (Keyboard.current.dKey.wasPressedThisFrame)
+            {
+                dir = Vector3.right - Vector3.forward;
+                dir.Normalize();
+                CharacterSpriteRenderer.sprite = walkRightSprite;
+                targetPosition = transform.position + dir * 1.85f;
+            }
+            else if (Keyboard.current.aKey.wasPressedThisFrame)
+            {
+                dir = -Vector3.right + Vector3.forward;
+                dir.Normalize();
+                CharacterSpriteRenderer.sprite = walkLeftSprite;
+                targetPosition = transform.position + dir * 1.85f;
+            }
+            else if (Keyboard.current.wKey.wasPressedThisFrame)
+            {
+                dir = Vector3.right + Vector3.forward;
+                dir.Normalize();
+                CharacterSpriteRenderer.sprite = walkIdleSprite;
+                targetPosition = transform.position + dir * 1.85f;
+            }
+            else if (Keyboard.current.sKey.wasPressedThisFrame)
+            {
+                dir = -Vector3.right - Vector3.forward;
+                dir.Normalize();
+                CharacterSpriteRenderer.sprite = walkIdleSprite;
+                targetPosition = transform.position + dir * 1.85f;
+            }
+            else
+            {
+                CharacterSpriteRenderer.sprite = walkIdleSprite;
+            }
         }
-        else if (Keyboard.current.aKey.wasPressedThisFrame)
+        if (targetPosition == Vector3.zero || targetPosition == transform.position)
         {
-            dir = -Vector3.right + Vector3.forward;
-            dir.Normalize();
-            CharacterSpriteRenderer.sprite = walkLeftSprite;
-            targetPosition = transform.position + dir * 1.75f;
-        }
-        else if (Keyboard.current.wKey.wasPressedThisFrame)
-        {
-            dir = Vector3.right + Vector3.forward;
-            dir.Normalize();
-            CharacterSpriteRenderer.sprite = walkIdleSprite;
-            targetPosition = transform.position + dir * 1.75f;
-        }
-        else if (Keyboard.current.sKey.wasPressedThisFrame)
-        {
-            dir = -Vector3.right - Vector3.forward;
-            dir.Normalize();
-            CharacterSpriteRenderer.sprite = walkIdleSprite;
-            targetPosition = transform.position + dir * 1.75f;
+            isMoving = false;
         }
         else
         {
-            CharacterSpriteRenderer.sprite = walkIdleSprite;
+            isMoving = true;
         }
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, animationSpeed * Time.deltaTime);
+
+        if (isMoving)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, animationSpeed * Time.deltaTime);
+        }
     }
 }
