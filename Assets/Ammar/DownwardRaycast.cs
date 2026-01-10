@@ -1,6 +1,6 @@
 using System;
-using System.Diagnostics;
 using DG.Tweening;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +16,7 @@ public class DownwardRaycast : MonoBehaviour
     private EventCollision.plantType _plantType;
     private ResourceBars _resources;
     private Boolean _tracked;
+    [SerializeField] private CinemachineCamera isometricCamera;
     [SerializeField] SpriteRenderer _promptButton;
     [SerializeField] Image _UpArrow;
     [SerializeField] Image _LeftArrow;
@@ -24,12 +25,20 @@ public class DownwardRaycast : MonoBehaviour
     [SerializeField] Image _TrackImage;
     [SerializeField] Image _CompassImage;
     [SerializeField] Sprite[] _TrackImagesRef;
+    [SerializeField] CanvasGroup _Compass;
+    private float initialOrthographicSize;
+    private CharacterMovement _movementRef;
     private enum target
     {
         CAMEL,
         FALCON,
         WELL,
         OASIS
+    }
+
+    void Awake()
+    {
+        initialOrthographicSize = Camera.main.orthographicSize;
     }
 
     void Start()
@@ -40,6 +49,7 @@ public class DownwardRaycast : MonoBehaviour
         _DownArrow.DOFade(0, 0.5f);
         _RightArrow.DOFade(0, 0.5f);
         _TrackImage.DOFade(0, 0.5f);
+        _movementRef = GetComponent<CharacterMovement>();
     }
 
     void Update()
@@ -65,10 +75,12 @@ public class DownwardRaycast : MonoBehaviour
             switch(_tileRefrence._event)
             {
                 case EventCollision.events.Track:
+                    _eventType = _tileRefrence._event;
                     _trackType = _tileRefrence._track;
                     ShowTrackImage();
                     ShowTrackDirection();
                     _tracked = true;
+                     _Compass.DOFade(1, 0.5f);
                     break;
                 case EventCollision.events.TrackEnd:
                     _promptButton.DOFade(1, 0.5f);
@@ -79,6 +91,8 @@ public class DownwardRaycast : MonoBehaviour
                     _promptButton.DOFade(1, 0.5f);
                     _eventType = _tileRefrence._event;
                     _plantType = _tileRefrence._plant;
+                    DOTween.To(() => isometricCamera.Lens.OrthographicSize,
+            value => isometricCamera.Lens.OrthographicSize = value, 1.68f, 0.2f).OnComplete(() => _movementRef.onMove += zoomOut);
                     break;
                 case EventCollision.events.None:
                     _promptButton.DOFade(0, 0.5f);
@@ -88,12 +102,27 @@ public class DownwardRaycast : MonoBehaviour
                     break;
 
             }
-            if (_tracked && _tileRefrence._event != EventCollision.events.Track)
+            if (_tracked && _eventType != EventCollision.events.Track)
             {
+                Debug.Log(_eventType);
                 _tracked = false;
+                _movementRef.onMove += compassDisappear;
                 ResetTrackImages();
             }
         }
+    }
+
+    public void zoomOut()
+    {
+        _movementRef.onMove -= zoomOut;
+        DOTween.To(() => isometricCamera.Lens.OrthographicSize,
+                    value => isometricCamera.Lens.OrthographicSize = value, initialOrthographicSize, 0.2f);
+    }
+
+    public void compassDisappear()
+    {
+        _movementRef.onMove -= compassDisappear;
+        _Compass.DOFade(0, 0.5f);
     }
 
     private void ShowTrackImage()
