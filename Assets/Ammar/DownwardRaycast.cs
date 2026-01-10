@@ -28,7 +28,6 @@ public class DownwardRaycast : MonoBehaviour
     [SerializeField] CanvasGroup _Compass;
     private float initialOrthographicSize;
     private CharacterMovement _movementRef;
-    private AudioManager _sfxManager;
     private enum target
     {
         CAMEL,
@@ -51,7 +50,6 @@ public class DownwardRaycast : MonoBehaviour
         _RightArrow.DOFade(0, 0.5f);
         _TrackImage.DOFade(0, 0.5f);
         _movementRef = GetComponent<CharacterMovement>();
-        _sfxManager = GetComponent<AudioManager>();
     }
 
     void Update()
@@ -83,6 +81,7 @@ public class DownwardRaycast : MonoBehaviour
                     ShowTrackDirection();
                     _tracked = true;
                      _Compass.DOFade(1, 0.5f);
+                     AudioManager.instance.playSFX(AudioManager.soundEffect.ZOOM, true);
                     break;
                 case EventCollision.events.TrackEnd:
                     _promptButton.DOFade(1, 0.5f);
@@ -95,6 +94,7 @@ public class DownwardRaycast : MonoBehaviour
                     _plantType = _tileRefrence._plant;
                     DOTween.To(() => isometricCamera.Lens.OrthographicSize,
             value => isometricCamera.Lens.OrthographicSize = value, 1.68f, 0.2f).OnComplete(() => _movementRef.onMove += zoomOut);
+                    AudioManager.instance.playSFX(AudioManager.soundEffect.ZOOM, true);
                     break;
                 case EventCollision.events.None:
                     _promptButton.DOFade(0, 0.5f);
@@ -209,7 +209,7 @@ public class DownwardRaycast : MonoBehaviour
                     _tileRefrence._event = EventCollision.events.None;
                     _eventType = EventCollision.events.None;
                     _promptButton.DOFade(0, 0.5f);
-                    _sfxManager.playSFX(AudioManager.soundEffect.DRINK, true);
+                    AudioManager.instance.playSFX(AudioManager.soundEffect.DRINK, true);
                     var colliders = Physics.OverlapBox(transform.position, Vector3.one * 1.75f / 2f);
                     foreach (var collider in colliders)
                     {
@@ -227,6 +227,7 @@ public class DownwardRaycast : MonoBehaviour
         }
         if (_eventType == EventCollision.events.Plant)
         {
+            AudioManager.instance.playSFX(AudioManager.soundEffect.EAT, true);
             switch(_plantType)
             {
                 case EventCollision.plantType.Medicinal:

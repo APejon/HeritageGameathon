@@ -10,7 +10,6 @@ public class SunSpot : MonoBehaviour
 
     private float time;
 
-
     private void Awake()
     {
         GetComponent<Collider>().isTrigger = true;
@@ -23,6 +22,7 @@ public class SunSpot : MonoBehaviour
         {
             DOTween.To(() => isometricCamera.Lens.OrthographicSize,
                 value => isometricCamera.Lens.OrthographicSize = value, 1.68f, 0.2f);
+            AudioManager.instance.playSFX(AudioManager.soundEffect.BURNING, true);
         }
     }
 
@@ -33,6 +33,7 @@ public class SunSpot : MonoBehaviour
             time = 0;
             DOTween.To(() => isometricCamera.Lens.OrthographicSize,
                 value => isometricCamera.Lens.OrthographicSize = value, initialOrthographicSize, 0.2f);
+            AudioManager.instance.playSFX(AudioManager.soundEffect.BURNING, false);
         }
     }
 
@@ -41,7 +42,7 @@ public class SunSpot : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             time += Time.deltaTime;
-            if (time >= 0.4f)
+            if (time >= 1f)
             {
                 time = 0;
                 resourceBars.decreaseResource(ResourceBars.stat.Hydration, 10);

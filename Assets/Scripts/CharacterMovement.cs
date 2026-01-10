@@ -108,7 +108,9 @@ public class CharacterMovement : MonoBehaviour
             if (isMoving)
             {
                 steps++;
-                if (steps % 5 == 0)
+                AudioManager.instance.randomizeFootPitch();
+                AudioManager.instance.playFootstep(AudioManager.soundEffect.FOOTSTEP);
+                if (steps % 10 == 0)
                 {
                     _resourceRef.decreaseResource(ResourceBars.stat.Hunger, 10);
                     _resourceRef.decreaseResource(ResourceBars.stat.Hydration, 10);
@@ -121,6 +123,7 @@ public class CharacterMovement : MonoBehaviour
                 {
                     if (snakeCombat.SpawnSnakeRandomly())
                     {
+                        AudioManager.instance.playSFX(AudioManager.soundEffect.SNAKE, true);
                         enabled = false;
                         snakeCombat.OnSnakeKilled += OnSnakeKilled;
                     }
@@ -168,12 +171,14 @@ public class CharacterMovement : MonoBehaviour
     private void OnEscapedQuicksand()
     {
         quickSandInteraction.OnEscapedQuicksand -= OnEscapedQuicksand;
+        AudioManager.instance.playSFX(AudioManager.soundEffect.QUICKSAND, false);
         enabled = true;
     }
 
     private void OnSnakeKilled()
     {
         snakeCombat.OnSnakeKilled -= OnSnakeKilled;
+        AudioManager.instance.playSFX(AudioManager.soundEffect.SNAKE, false);
         enabled = true;
     }
 

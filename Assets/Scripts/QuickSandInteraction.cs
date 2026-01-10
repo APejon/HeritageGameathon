@@ -79,6 +79,7 @@ public class QuickSandInteraction : MonoBehaviour
 
     public void StartDrowning()
     {
+        AudioManager.instance.playSFX(AudioManager.soundEffect.QUICKSAND, true);
         playerInitialYPosition = transform.position.y;
         isDrowning = true;
         fInputPrompt.color = Color.white;

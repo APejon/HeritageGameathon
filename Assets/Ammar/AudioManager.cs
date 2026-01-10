@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -6,12 +5,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource _music;
     [SerializeField] AudioSource _atmosphere;
     [SerializeField] AudioSource _sfx;
+    [SerializeField] AudioSource _footSteps;
     [SerializeField] AudioClip[] _musicClips;
     [SerializeField] AudioClip[] _atmosphereClips;
     [SerializeField] AudioClip[] _sfxClips;
     private int _musicIndex;
     private int _atmosphereIndex;
     private int _sfxIndex;
+    public static AudioManager instance;
 
     public enum soundEffect
     {
@@ -25,6 +26,12 @@ public class AudioManager : MonoBehaviour
         EAT,
         DRINK,
         QUICKSAND
+    }
+
+    void Awake()
+    {
+        instance = this;
+        DontDestroyOnLoad(this);
     }
 
     void Start()
@@ -48,4 +55,26 @@ public class AudioManager : MonoBehaviour
         else
             _sfx.Stop();
     }
+
+    public void playFootstep(soundEffect sound)
+    {
+            _footSteps.clip = _sfxClips[(int)sound];
+            _footSteps.Play();
+    }
+
+    public void randomizePitch()
+    {
+        _sfx.pitch = Random.Range(0.8f, 1.2f);
+    }
+
+    public void normalizePitch()
+    {
+        _sfx.pitch = 1f;
+    }
+    
+    public void randomizeFootPitch()
+    {
+        _footSteps.pitch = Random.Range(0.8f, 1.2f);
+    }
+
 }
