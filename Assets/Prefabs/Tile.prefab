@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6730140947000089045}
   - component: {fileID: 2067035242586596234}
   - component: {fileID: 8964509932263515805}
+  - component: {fileID: 907768687625313912}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -128,3 +129,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.7535379, y: 6.5525613, z: 1.7535375}
   m_Center: {x: 0, y: -3.2762997, z: -3.5527137e-15}
+--- !u!114 &907768687625313912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7660080325307409096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93f16189536238a46816c7e75e88b780, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EventCollision
+  _event: 0
+  _track: 0
+  _hazard: 0
+  _plant: 0

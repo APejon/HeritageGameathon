@@ -78,6 +78,12 @@ public class CharacterMovement : MonoBehaviour
             {
                 CharacterSpriteRenderer.sprite = walkIdleSprite;
             }
+            var tileEvent = PerformLookAhead(targetPosition);
+            if (tileEvent == EventCollision.events.Boundary)
+            {
+                targetPosition = transform.position;
+                DOVirtual.DelayedCall(0.1f, ResetInputPrompts);
+            }
         }
 
         if (targetPosition == Vector3.zero || targetPosition == transform.position)
@@ -100,6 +106,19 @@ public class CharacterMovement : MonoBehaviour
             transform.position =
                 Vector3.MoveTowards(transform.position, targetPosition, animationSpeed * Time.deltaTime);
         }
+    }
+
+    private EventCollision.events PerformLookAhead(Vector3 newPosition)
+    {
+        var raycast = Physics.Raycast(new Ray(newPosition, Vector3.down), out var hit, 100f);
+
+        if (raycast)
+        {
+            var tileEvent = hit.transform.gameObject.GetComponent<EventCollision>();
+            if (tileEvent == null) return EventCollision.events.None;
+            return tileEvent._event;
+        }
+        return EventCollision.events.None;
     }
 
     private void ResetInputPrompts()

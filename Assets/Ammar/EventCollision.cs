@@ -2,19 +2,21 @@ using UnityEngine;
 
 public class EventCollision : MonoBehaviour
 {
-    [SerializeField] events _event;
-    [SerializeField] trackType _track;
-    [SerializeField] hazardType _hazard;
-    [SerializeField] plantType _plant;
-    
+    [SerializeField] public events _event;
+    [SerializeField] public trackType _track;
+    [SerializeField] public hazardType _hazard;
+    [SerializeField] public plantType _plant;
+
     public enum events
     {
+        None,
         Track,
         TrackEnd,
         Hazards,
         Plant,
         Event,
-        Village
+        Village,
+        Boundary
     }
 
     public enum trackType

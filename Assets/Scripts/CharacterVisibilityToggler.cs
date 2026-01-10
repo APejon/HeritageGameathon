@@ -4,7 +4,6 @@ public class CharacterVisibilityToggler : MonoBehaviour
 {
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawCube(transform.position, Vector3.one * 1.75f);
     }
 
     public void ToggleVisibility()
