@@ -18,11 +18,13 @@ public class CharacterMovement : MonoBehaviour
     private Camera cam;
     private bool isMoving;
     private Vector3 targetPosition;
+    private DownwardRaycast _raycastRef;
 
 
     private void Awake()
     {
         cam = Camera.main;
+        _raycastRef = GetComponent<DownwardRaycast>();
     }
 
     private void Update()
@@ -92,6 +94,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 ResetInputPrompts();
                 visibilityToggler.ToggleVisibility();
+                _raycastRef.castARay();
             }
 
             isMoving = false;

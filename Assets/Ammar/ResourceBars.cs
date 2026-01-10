@@ -70,8 +70,8 @@ public class ResourceBars : MonoBehaviour
         //     decreaseResource(stat.Hunger, 30);
         // if (Keyboard.current.digit4Key.wasPressedThisFrame)
         //     increaseResource(stat.Hunger, 50);
-        // if (Keyboard.current.digit5Key.wasPressedThisFrame)
-        //     decreaseResource(stat.Hydration, 10);
+        if (Keyboard.current.digit5Key.wasPressedThisFrame)
+            decreaseResource(stat.Hydration, 10);
         // if (Keyboard.current.digit6Key.wasPressedThisFrame)
         //     increaseResource(stat.Hydration, 10);
     }
