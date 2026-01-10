@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8087367551621378057}
   - component: {fileID: 1742523546015707201}
   - component: {fileID: 6730140947000089045}
+  - component: {fileID: 2067035242586596234}
+  - component: {fileID: 8964509932263515805}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -90,3 +92,39 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2067035242586596234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7660080325307409096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9900d777e2624025837be6afda35772d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TileVisibility
+  visibleMaterial: {fileID: 2100000, guid: aaef3732656c66f4daaffbdef27cc136, type: 2}
+  invisibleMaterial: {fileID: 2100000, guid: 8a385d546411b124ba9466903e655fc1, type: 2}
+  <IsVisibleOnStart>k__BackingField: 0
+--- !u!65 &8964509932263515805
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7660080325307409096}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.7535379, y: 6.5525613, z: 1.7535375}
+  m_Center: {x: 0, y: -3.2762997, z: -3.5527137e-15}
