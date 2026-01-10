@@ -3,6 +3,8 @@ using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
+using Unity.VisualScripting;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -24,6 +26,7 @@ public class CharacterMovement : MonoBehaviour
     private bool isMoving;
     private TweenerCore<Vector3, Vector3, VectorOptions> snakeTween;
     private Vector3 targetPosition;
+    public Action onMove;
 
 
     private void Awake()
@@ -118,8 +121,8 @@ public class CharacterMovement : MonoBehaviour
                     quickSandInteraction.StartDrowning();
                     quickSandInteraction.OnEscapedQuicksand += OnEscapedQuicksand;
                 }
+                onMove?.Invoke();
             }
-
             isMoving = false;
         }
         else
