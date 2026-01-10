@@ -70,6 +70,8 @@ public class QuickSandInteraction : MonoBehaviour
         {
             var position = transform.position;
             position.y -= drownSpeed * Time.deltaTime;
+            if (position.y < -0.5)
+                position.y = -0.5f;
             transform.position = position;
         }
     }
