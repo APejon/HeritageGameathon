@@ -50,6 +50,7 @@ public class DownwardRaycast : MonoBehaviour
         _RightArrow.DOFade(0, 0.5f);
         _TrackImage.DOFade(0, 0.5f);
         _movementRef = GetComponent<CharacterMovement>();
+        _Compass.DOFade(0f, 1);
     }
 
     void Update()
