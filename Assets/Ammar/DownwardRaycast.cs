@@ -13,6 +13,7 @@ public class DownwardRaycast : MonoBehaviour
     private EventCollision.events    _eventType;
     private EventCollision.trackType _trackType;
     private EventCollision.trackDirection _trackDirection;
+    private EventCollision.plantType _plantType;
     private ResourceBars _resources;
     private Boolean _tracked;
     [SerializeField] SpriteRenderer _promptButton;
@@ -50,7 +51,7 @@ public class DownwardRaycast : MonoBehaviour
 
     Boolean CheckEventType()
     {
-        if (_eventType == EventCollision.events.TrackEnd)
+        if (_eventType == EventCollision.events.TrackEnd || _eventType == EventCollision.events.Plant)
             return true;
         else
             return false;
@@ -73,6 +74,11 @@ public class DownwardRaycast : MonoBehaviour
                     _promptButton.DOFade(1, 0.5f);
                     _eventType = _tileRefrence._event;
                     _trackType = _tileRefrence._track;
+                    break;
+                case EventCollision.events.Plant:
+                    _promptButton.DOFade(1, 0.5f);
+                    _eventType = _tileRefrence._event;
+                    _plantType = _tileRefrence._plant;
                     break;
                 default:
                     break;
@@ -181,6 +187,25 @@ public class DownwardRaycast : MonoBehaviour
                         }
                     }
                     break;
+            }
+        }
+        if (_eventType == EventCollision.events.Plant)
+        {
+            switch(_plantType)
+            {
+                case EventCollision.plantType.Medicinal:
+                    _resources.increaseResource(ResourceBars.stat.Health, 10);
+                     _tileRefrence._event = EventCollision.events.None;
+                    _eventType = EventCollision.events.None;
+                    _promptButton.DOFade(0, 0.5f);
+                    break;
+                case EventCollision.plantType.Poisonous:
+                    _resources.decreaseResource(ResourceBars.stat.Health, 10);
+                     _tileRefrence._event = EventCollision.events.None;
+                    _eventType = EventCollision.events.None;
+                    _promptButton.DOFade(0, 0.5f);
+                    break;
+                
             }
         }
     }

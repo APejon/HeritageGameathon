@@ -42,7 +42,7 @@ public class EventCollision : MonoBehaviour
     {
         Scorpion,
         Snake,
-        Sunspot,
+        Heatwave,
         QuickSand
     }
 
