@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using DG.Tweening;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
@@ -76,10 +75,12 @@ public class DownwardRaycast : MonoBehaviour
             switch(_tileRefrence._event)
             {
                 case EventCollision.events.Track:
+                    _eventType = _tileRefrence._event;
                     _trackType = _tileRefrence._track;
                     ShowTrackImage();
                     ShowTrackDirection();
                     _tracked = true;
+                     _Compass.DOFade(1, 0.5f);
                     break;
                 case EventCollision.events.TrackEnd:
                     _promptButton.DOFade(1, 0.5f);
@@ -92,7 +93,6 @@ public class DownwardRaycast : MonoBehaviour
                     _plantType = _tileRefrence._plant;
                     DOTween.To(() => isometricCamera.Lens.OrthographicSize,
             value => isometricCamera.Lens.OrthographicSize = value, 1.68f, 0.2f).OnComplete(() => _movementRef.onMove += zoomOut);
-                    
                     break;
                 case EventCollision.events.None:
                     _promptButton.DOFade(0, 0.5f);
@@ -102,9 +102,11 @@ public class DownwardRaycast : MonoBehaviour
                     break;
 
             }
-            if (_tracked && _tileRefrence._event != EventCollision.events.Track)
+            if (_tracked && _eventType != EventCollision.events.Track)
             {
+                Debug.Log(_eventType);
                 _tracked = false;
+                _movementRef.onMove += compassDisappear;
                 ResetTrackImages();
             }
         }
@@ -115,6 +117,12 @@ public class DownwardRaycast : MonoBehaviour
         _movementRef.onMove -= zoomOut;
         DOTween.To(() => isometricCamera.Lens.OrthographicSize,
                     value => isometricCamera.Lens.OrthographicSize = value, initialOrthographicSize, 0.2f);
+    }
+
+    public void compassDisappear()
+    {
+        _movementRef.onMove -= compassDisappear;
+        _Compass.DOFade(0, 0.5f);
     }
 
     private void ShowTrackImage()

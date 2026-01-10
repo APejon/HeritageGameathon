@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using Unity.VisualScripting;
+using Mono.Cecil;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class CharacterMovement : MonoBehaviour
     private bool isMoving;
     private TweenerCore<Vector3, Vector3, VectorOptions> snakeTween;
     private Vector3 targetPosition;
+    private int steps;
+    private ResourceBars _resourceRef;
     public Action onMove;
 
 
@@ -33,6 +36,7 @@ public class CharacterMovement : MonoBehaviour
     {
         _raycastRef = GetComponent<DownwardRaycast>();
         animator = GetComponent<Animator>();
+        _resourceRef = GetComponent<ResourceBars>();
     }
 
     private void Update()
@@ -103,6 +107,12 @@ public class CharacterMovement : MonoBehaviour
         {
             if (isMoving)
             {
+                steps++;
+                if (steps % 5 == 0)
+                {
+                    _resourceRef.decreaseResource(ResourceBars.stat.Hunger, 10);
+                    _resourceRef.decreaseResource(ResourceBars.stat.Hydration, 10);
+                }
                 ResetInputPrompts();
                 visibilityToggler.ToggleVisibility();
                 _raycastRef.castARay();
