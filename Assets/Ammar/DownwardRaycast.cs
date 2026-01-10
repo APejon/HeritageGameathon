@@ -28,6 +28,7 @@ public class DownwardRaycast : MonoBehaviour
     [SerializeField] CanvasGroup _Compass;
     private float initialOrthographicSize;
     private CharacterMovement _movementRef;
+    private AudioManager _sfxManager;
     private enum target
     {
         CAMEL,
@@ -50,6 +51,7 @@ public class DownwardRaycast : MonoBehaviour
         _RightArrow.DOFade(0, 0.5f);
         _TrackImage.DOFade(0, 0.5f);
         _movementRef = GetComponent<CharacterMovement>();
+        _sfxManager = GetComponent<AudioManager>();
     }
 
     void Update()
@@ -207,6 +209,7 @@ public class DownwardRaycast : MonoBehaviour
                     _tileRefrence._event = EventCollision.events.None;
                     _eventType = EventCollision.events.None;
                     _promptButton.DOFade(0, 0.5f);
+                    _sfxManager.playSFX(AudioManager.soundEffect.DRINK, true);
                     var colliders = Physics.OverlapBox(transform.position, Vector3.one * 1.75f / 2f);
                     foreach (var collider in colliders)
                     {

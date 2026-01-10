@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -12,9 +13,39 @@ public class AudioManager : MonoBehaviour
     private int _atmosphereIndex;
     private int _sfxIndex;
 
+    public enum soundEffect
+    {
+        BURNING,
+        CAMEL,
+        FALCON,
+        GAMEEND,
+        FOOTSTEP,
+        SNAKE,
+        ZOOM,
+        EAT,
+        DRINK,
+        QUICKSAND
+    }
+
     void Start()
     {
         _musicIndex = 0;
+        _atmosphereIndex = 0;
+        _sfxIndex = 0;
+        _music.clip = _musicClips[_musicIndex];
+        _music.Play();
+        _atmosphere.clip = _atmosphereClips[_atmosphereIndex];
+        _atmosphere.Play();
+    }
 
+    public void playSFX(soundEffect sound, bool play)
+    {
+        if (play)
+        {
+            _sfx.clip = _sfxClips[(int)sound];
+            _sfx.Play();
+        }
+        else
+            _sfx.Stop();
     }
 }
