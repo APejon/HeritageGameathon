@@ -41,7 +41,7 @@ public class SunSpot : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             time += Time.deltaTime;
-            if (time >= 1f)
+            if (time >= 0.4f)
             {
                 time = 0;
                 resourceBars.decreaseResource(ResourceBars.stat.Hydration, 10);
