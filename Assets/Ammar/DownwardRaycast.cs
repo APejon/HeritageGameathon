@@ -80,6 +80,10 @@ public class DownwardRaycast : MonoBehaviour
                     _eventType = _tileRefrence._event;
                     _plantType = _tileRefrence._plant;
                     break;
+                case EventCollision.events.None:
+                    _promptButton.DOFade(0, 0.5f);
+                    _eventType = _tileRefrence._event;
+                    break;
                 default:
                     break;
 
@@ -205,7 +209,14 @@ public class DownwardRaycast : MonoBehaviour
                     _eventType = EventCollision.events.None;
                     _promptButton.DOFade(0, 0.5f);
                     break;
-                
+            }
+            var colliders = Physics.OverlapBox(transform.position, Vector3.one * 1.75f / 2f);
+            foreach (var collider in colliders)
+            {
+                if (collider.CompareTag("Flower"))
+                {
+                    collider.gameObject.SetActive(false);
+                }
             }
         }
     }
