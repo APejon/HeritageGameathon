@@ -15,7 +15,16 @@ public class SunSpot : MonoBehaviour
     {
         GetComponent<Collider>().isTrigger = true;
         initialOrthographicSize = Camera.main.orthographicSize;
+        DayNightCycle.Instance.OnNightStart += OnNightStart;
+        DayNightCycle.Instance.OnDayStart += OnDayStart;
     }
+
+    private void OnDestroy()
+    {
+        DayNightCycle.Instance.OnNightStart -= OnNightStart;
+        DayNightCycle.Instance.OnDayStart -= OnDayStart;
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -47,5 +56,15 @@ public class SunSpot : MonoBehaviour
                 resourceBars.decreaseResource(ResourceBars.stat.Hydration, 10);
             }
         }
+    }
+
+    private void OnDayStart()
+    {
+        gameObject.SetActive(true);
+    }
+
+    private void OnNightStart()
+    {
+        gameObject.SetActive(false);
     }
 }

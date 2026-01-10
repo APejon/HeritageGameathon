@@ -87,7 +87,7 @@ public class SnakeCombat : MonoBehaviour
 
     public bool SpawnSnakeRandomly()
     {
-        if (Random.Range(0, 100) < 30)
+        if (DayNightCycle.Instance.IsNight ? Random.Range(0, 100) < 60 : Random.Range(0, 100) < 30)
         {
             var insideUnitCircle = Random.insideUnitCircle.normalized;
             initialSnakePosition = transform.position +
@@ -97,7 +97,6 @@ public class SnakeCombat : MonoBehaviour
             snake.transform.LookAt(transform);
             isBeingAttacked = true;
             forwardsBackwards = true;
-            // Camera.main.DOOrthoSize(1, 0.3f);
             fInputPrompt.color = Color.white;
             fInputPrompt.DOFade(1, 0.2f);
             DOTween.To(() => isometricCamera.Lens.OrthographicSize,
