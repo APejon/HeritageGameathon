@@ -27,7 +27,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Awake()
     {
-        cam = Camera.main;
+        _raycastRef = GetComponent<DownwardRaycast>();
     }
 
     private void Update()
@@ -99,6 +99,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 ResetInputPrompts();
                 visibilityToggler.ToggleVisibility();
+                _raycastRef.castARay();
                 tileEvent = RaycastForTileType(targetPosition);
                 if (tileEvent == EventCollision.events.PatchOfGrass)
                 {
