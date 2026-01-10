@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gc_0
+      name: Character_0
       rect:
         serializedVersion: 2
         x: 28
@@ -112,14 +112,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e49da9d06e586bf40a1a4c9ce07e8033
-      internalID: 513502654
+      spriteID: 62d9cdd42f1f26c46b5167060c2ebc91
+      internalID: -1898037038
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gc_1
+      name: Character_1
       rect:
         serializedVersion: 2
         x: 414
@@ -134,14 +134,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d13cd3346ba7cc41be2c0c62ddfae79
-      internalID: -218833227
+      spriteID: 216e9d63954a7a74ead719378658a7b0
+      internalID: 2112641549
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gc_2
+      name: Character_2
       rect:
         serializedVersion: 2
         x: 834
@@ -156,14 +156,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dcfee28fe95cbd04c9dd25f9227af164
-      internalID: 959557769
+      spriteID: f4f777a00fd4c7c418b581a4407a1c90
+      internalID: -238229542
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gc_3
+      name: Character_3
       rect:
         serializedVersion: 2
         x: 1235
@@ -178,14 +178,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f167c39428b19bb4da80c7aa9e33ab33
-      internalID: 2046181721
+      spriteID: 17aa14a5370169e4c82d1a66d6d92ddd
+      internalID: -1029606049
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gc_4
+      name: Character_4
       rect:
         serializedVersion: 2
         x: 1560
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ace8f659b6f15414ba0c4fce32ec64d7
-      internalID: 1755155717
+      spriteID: 976d94139f4731340b217735afc7cb0d
+      internalID: 955027606
       vertices: []
       indices: 
       edges: []
@@ -222,11 +222,11 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      gc_0: 513502654
-      gc_1: -218833227
-      gc_2: 959557769
-      gc_3: 2046181721
-      gc_4: 1755155717
+      Character_0: -1898037038
+      Character_1: 2112641549
+      Character_2: -238229542
+      Character_3: -1029606049
+      Character_4: 955027606
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
