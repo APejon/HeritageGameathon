@@ -62,18 +62,18 @@ public class ResourceBars : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current.digit1Key.wasPressedThisFrame)
-            decreaseResource(stat.Health, 20);
-        if (Keyboard.current.digit2Key.wasPressedThisFrame)
-            increaseResource(stat.Health, 40);
-        if (Keyboard.current.digit3Key.wasPressedThisFrame)
-            decreaseResource(stat.Hunger, 30);
-        if (Keyboard.current.digit4Key.wasPressedThisFrame)
-            increaseResource(stat.Hunger, 50);
-        if (Keyboard.current.digit5Key.wasPressedThisFrame)
-            decreaseResource(stat.Hydration, 10);
-        if (Keyboard.current.digit6Key.wasPressedThisFrame)
-            increaseResource(stat.Hydration, 10);
+        // if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        //     decreaseResource(stat.Health, 20);
+        // if (Keyboard.current.digit2Key.wasPressedThisFrame)
+        //     increaseResource(stat.Health, 40);
+        // if (Keyboard.current.digit3Key.wasPressedThisFrame)
+        //     decreaseResource(stat.Hunger, 30);
+        // if (Keyboard.current.digit4Key.wasPressedThisFrame)
+        //     increaseResource(stat.Hunger, 50);
+        // if (Keyboard.current.digit5Key.wasPressedThisFrame)
+        //     decreaseResource(stat.Hydration, 10);
+        // if (Keyboard.current.digit6Key.wasPressedThisFrame)
+        //     increaseResource(stat.Hydration, 10);
     }
 
     public void increaseResource(stat resource, int amount)
