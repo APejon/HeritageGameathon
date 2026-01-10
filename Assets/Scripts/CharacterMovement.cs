@@ -19,20 +19,22 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer dInputPrompt;
     [SerializeField] private SnakeCombat snakeCombat;
     [SerializeField] private QuickSandInteraction quickSandInteraction;
+    private DownwardRaycast _raycastRef;
+    private Animator animator;
     private bool isMoving;
     private TweenerCore<Vector3, Vector3, VectorOptions> snakeTween;
     private Vector3 targetPosition;
-    private DownwardRaycast _raycastRef;
 
 
     private void Awake()
     {
         _raycastRef = GetComponent<DownwardRaycast>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        var tileEvent = EventCollision.events.None;
+        EventCollision.events tileEvent;
         if (!isMoving)
         {
             Vector3 dir;
@@ -41,6 +43,7 @@ public class CharacterMovement : MonoBehaviour
                 dir = Vector3.right - Vector3.forward;
                 dir.Normalize();
                 CharacterSpriteRenderer.sprite = walkRightSprite;
+                animator.SetTrigger("WalkR");
                 targetPosition = transform.position + dir * 1.85f;
                 dInputPrompt.color = new Color(0x75 / 255f, 1, 0xEC / 255f);
                 wInputPrompt.DOFade(0, 0.05f);
@@ -52,6 +55,7 @@ public class CharacterMovement : MonoBehaviour
                 dir = -Vector3.right + Vector3.forward;
                 dir.Normalize();
                 CharacterSpriteRenderer.sprite = walkLeftSprite;
+                animator.SetTrigger("WalkL");
                 targetPosition = transform.position + dir * 1.85f;
                 aInputPrompt.color = new Color(0x75 / 255f, 1, 0xEC / 255f);
                 wInputPrompt.DOFade(0, 0.05f);
@@ -62,7 +66,8 @@ public class CharacterMovement : MonoBehaviour
             {
                 dir = Vector3.right + Vector3.forward;
                 dir.Normalize();
-                CharacterSpriteRenderer.sprite = walkIdleSprite;
+                CharacterSpriteRenderer.sprite = walkRightSprite;
+                animator.SetTrigger("WalkR");
                 targetPosition = transform.position + dir * 1.85f;
                 wInputPrompt.color = new Color(0x75 / 255f, 1, 0xEC / 255f);
                 aInputPrompt.DOFade(0, 0.05f);
@@ -73,18 +78,16 @@ public class CharacterMovement : MonoBehaviour
             {
                 dir = -Vector3.right - Vector3.forward;
                 dir.Normalize();
-                CharacterSpriteRenderer.sprite = walkIdleSprite;
+                CharacterSpriteRenderer.sprite = walkLeftSprite;
+                animator.SetTrigger("WalkL");
                 targetPosition = transform.position + dir * 1.85f;
                 sInputPrompt.color = new Color(0x75 / 255f, 1, 0xEC / 255f);
                 wInputPrompt.DOFade(0, 0.05f);
                 aInputPrompt.DOFade(0, 0.05f);
                 dInputPrompt.DOFade(0, 0.05f);
             }
-            else
-            {
-                CharacterSpriteRenderer.sprite = walkIdleSprite;
-            }
 
+            // CharacterSpriteRenderer.sprite = walkIdleSprite;
             tileEvent = RaycastForTileType(targetPosition);
             if (tileEvent == EventCollision.events.Boundary)
             {
