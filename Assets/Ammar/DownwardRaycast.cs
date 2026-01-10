@@ -144,6 +144,25 @@ public class DownwardRaycast : MonoBehaviour
         {
             switch(_trackType)
             {
+                case EventCollision.trackType.Camel:
+                    _resources.increaseResource(ResourceBars.stat.Health, 20);
+                    _tileRefrence._event = EventCollision.events.None;
+                    _eventType = EventCollision.events.None;
+                    _promptButton.DOFade(0, 0.5f);
+                    break;
+                case EventCollision.trackType.Falcon:
+                    _resources.increaseResource(ResourceBars.stat.Hunger, 20);
+                    _tileRefrence._event = EventCollision.events.None;
+                    _eventType = EventCollision.events.None;
+                    _promptButton.DOFade(0, 0.5f);
+                    break;
+                case EventCollision.trackType.Oasis:
+                    _resources.increaseResource(ResourceBars.stat.Hunger, 10);
+                    _resources.increaseResource(ResourceBars.stat.Hydration, 10);
+                    _tileRefrence._event = EventCollision.events.None;
+                    _eventType = EventCollision.events.None;
+                    _promptButton.DOFade(0, 0.5f);
+                    break;
                 case EventCollision.trackType.Well:
                     _resources.increaseResource(ResourceBars.stat.Hydration, 20);
                     _tileRefrence._event = EventCollision.events.None;

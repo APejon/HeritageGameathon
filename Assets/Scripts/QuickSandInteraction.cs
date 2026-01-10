@@ -26,6 +26,7 @@ public class QuickSandInteraction : MonoBehaviour
     private void Start()
     {
         initialOrthographicSize = Camera.main.orthographicSize;
+        drownAmount = 0f;
     }
 
     private void Update()

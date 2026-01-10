@@ -17,6 +17,8 @@ public class ResourceBars : MonoBehaviour
     private Image[][] _subBar;
     private Coroutine _resourceMainBarRoutine;
     private Coroutine _resourceSubBarRoutine;
+    private SnakeCombat _snakeCombat;
+    private QuickSandInteraction _quicksandCombat;
 
     public enum stat
     {
@@ -57,6 +59,10 @@ public class ResourceBars : MonoBehaviour
                 }
             }
         }
+        _snakeCombat = GetComponent<SnakeCombat>();
+        _quicksandCombat = GetComponent<QuickSandInteraction>();
+        _snakeCombat.OnSnakeBite += Damaged;
+        _quicksandCombat.OnTakenDamage += Damaged;
     }
 
 
@@ -70,10 +76,20 @@ public class ResourceBars : MonoBehaviour
         //     decreaseResource(stat.Hunger, 30);
         // if (Keyboard.current.digit4Key.wasPressedThisFrame)
         //     increaseResource(stat.Hunger, 50);
-        if (Keyboard.current.digit5Key.wasPressedThisFrame)
-            decreaseResource(stat.Hydration, 10);
+        // if (Keyboard.current.digit5Key.wasPressedThisFrame)
+        //     decreaseResource(stat.Hydration, 10);
         // if (Keyboard.current.digit6Key.wasPressedThisFrame)
         //     increaseResource(stat.Hydration, 10);
+    }
+
+    public void Hurt()
+    {
+        decreaseResource(stat.Health, 20);
+    }
+
+    public void Damaged()
+    {
+        decreaseResource(stat.Health, 10);
     }
 
     public void increaseResource(stat resource, int amount)
