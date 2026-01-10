@@ -17,7 +17,8 @@ public class EventCollision : MonoBehaviour
         Plant,
         Event,
         Village,
-        Boundary
+        Boundary,
+        PatchOfGrass
     }
 
     public enum trackType

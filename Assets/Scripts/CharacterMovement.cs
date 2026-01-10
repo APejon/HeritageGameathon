@@ -1,4 +1,6 @@
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,8 +17,9 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer aInputPrompt;
     [SerializeField] private SpriteRenderer sInputPrompt;
     [SerializeField] private SpriteRenderer dInputPrompt;
-    private Camera cam;
+    [SerializeField] private SnakeCombat snakeCombat;
     private bool isMoving;
+    private TweenerCore<Vector3, Vector3, VectorOptions> snakeTween;
     private Vector3 targetPosition;
     private DownwardRaycast _raycastRef;
 
@@ -24,11 +27,11 @@ public class CharacterMovement : MonoBehaviour
     private void Awake()
     {
         cam = Camera.main;
-        _raycastRef = GetComponent<DownwardRaycast>();
     }
 
     private void Update()
     {
+        var tileEvent = EventCollision.events.None;
         if (!isMoving)
         {
             Vector3 dir;
@@ -80,7 +83,8 @@ public class CharacterMovement : MonoBehaviour
             {
                 CharacterSpriteRenderer.sprite = walkIdleSprite;
             }
-            var tileEvent = PerformLookAhead(targetPosition);
+
+            tileEvent = RaycastForTileType(targetPosition);
             if (tileEvent == EventCollision.events.Boundary)
             {
                 targetPosition = transform.position;
@@ -94,7 +98,6 @@ public class CharacterMovement : MonoBehaviour
             {
                 ResetInputPrompts();
                 visibilityToggler.ToggleVisibility();
-                _raycastRef.castARay();
             }
 
             isMoving = false;
@@ -111,16 +114,45 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    private EventCollision.events PerformLookAhead(Vector3 newPosition)
+    private void OnEnable()
     {
-        var raycast = Physics.Raycast(new Ray(newPosition, Vector3.down), out var hit, 100f);
+        wInputPrompt.DOFade(1, 0.1f);
+        aInputPrompt.DOFade(1, 0.1f);
+        sInputPrompt.DOFade(1, 0.1f);
+        dInputPrompt.DOFade(1, 0.1f);
+    }
+
+    private void OnDisable()
+    {
+        wInputPrompt.DOFade(0, 0.1f);
+        aInputPrompt.DOFade(0, 0.1f);
+        sInputPrompt.DOFade(0, 0.1f);
+        dInputPrompt.DOFade(0, 0.1f);
+        CharacterSpriteRenderer.sprite = walkIdleSprite;
+    }
+
+    private void OnSnakeKilled()
+    {
+        snakeCombat.OnSnakeKilled -= OnSnakeKilled;
+        enabled = true;
+    }
+
+    private static EventCollision.events RaycastForTileType(Vector3 newPosition)
+    {
+        var raycast = Physics.Raycast(new Ray(newPosition, Vector3.down), out var hit, 100f,
+            1 << LayerMask.NameToLayer("Tile"));
 
         if (raycast)
         {
             var tileEvent = hit.transform.gameObject.GetComponent<EventCollision>();
-            if (tileEvent == null) return EventCollision.events.None;
+            if (tileEvent == null)
+            {
+                return EventCollision.events.None;
+            }
+
             return tileEvent._event;
         }
+
         return EventCollision.events.None;
     }
 
