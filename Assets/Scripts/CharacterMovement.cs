@@ -22,7 +22,13 @@ public class CharacterMovement : MonoBehaviour
     private bool isMoving;
     private TweenerCore<Vector3, Vector3, VectorOptions> snakeTween;
     private Vector3 targetPosition;
+    private DownwardRaycast _raycastRef;
 
+
+    private void Awake()
+    {
+        cam = Camera.main;
+    }
 
     private void Update()
     {
