@@ -46,6 +46,7 @@ public class SnakeCombat : MonoBehaviour
                 GetComponent<CinemachineImpulseSource>().GenerateImpulse();
                 OnSnakeBite?.Invoke();
                 forwardsBackwards = false;
+                snake.transform.position = transform.position;
             }
         }
         else
@@ -55,6 +56,7 @@ public class SnakeCombat : MonoBehaviour
             if (Vector3.Distance(snake.transform.position, initialSnakePosition) < 0.1f)
             {
                 forwardsBackwards = true;
+                snake.transform.position = initialSnakePosition;
             }
         }
 
