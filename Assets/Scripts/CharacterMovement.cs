@@ -18,6 +18,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer sInputPrompt;
     [SerializeField] private SpriteRenderer dInputPrompt;
     [SerializeField] private SnakeCombat snakeCombat;
+    [SerializeField] private QuickSandInteraction quickSandInteraction;
     private bool isMoving;
     private TweenerCore<Vector3, Vector3, VectorOptions> snakeTween;
     private Vector3 targetPosition;
@@ -101,6 +102,12 @@ public class CharacterMovement : MonoBehaviour
                         snakeCombat.OnSnakeKilled += OnSnakeKilled;
                     }
                 }
+                else if (tileEvent == EventCollision.events.QuickSand)
+                {
+                    enabled = false;
+                    quickSandInteraction.StartDrowning();
+                    quickSandInteraction.OnEscapedQuicksand += OnEscapedQuicksand;
+                }
             }
 
             isMoving = false;
@@ -132,6 +139,13 @@ public class CharacterMovement : MonoBehaviour
         sInputPrompt.DOFade(0, 0.1f);
         dInputPrompt.DOFade(0, 0.1f);
         CharacterSpriteRenderer.sprite = walkIdleSprite;
+    }
+
+
+    private void OnEscapedQuicksand()
+    {
+        quickSandInteraction.OnEscapedQuicksand -= OnEscapedQuicksand;
+        enabled = true;
     }
 
     private void OnSnakeKilled()
