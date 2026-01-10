@@ -9,13 +9,13 @@ using UnityEngine.UI;
 public class DownwardRaycast : MonoBehaviour
 {
     private RaycastHit      _hit;
-    private EventCollision  _tileRefence;
+    private EventCollision  _tileRefrence;
     private EventCollision.events    _eventType;
     private EventCollision.trackType _trackType;
     private EventCollision.trackDirection _trackDirection;
     private ResourceBars _resources;
     private Boolean _tracked;
-    [SerializeField] GameObject _promptButton;
+    [SerializeField] SpriteRenderer _promptButton;
     [SerializeField] Image _UpArrow;
     [SerializeField] Image _LeftArrow;
     [SerializeField] Image _DownArrow;
@@ -60,31 +60,25 @@ public class DownwardRaycast : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, Vector3.down, out _hit, 2f))
         {
-            _tileRefence = _hit.collider.gameObject.GetComponent<EventCollision>();
-            switch(_tileRefence._event)
+            _tileRefrence = _hit.collider.gameObject.GetComponent<EventCollision>();
+            switch(_tileRefrence._event)
             {
                 case EventCollision.events.Track:
-                    _trackType = _tileRefence._track;
+                    _trackType = _tileRefrence._track;
                     ShowTrackImage();
                     ShowTrackDirection();
                     _tracked = true;
                     break;
                 case EventCollision.events.TrackEnd:
-                    _promptButton.SetActive(true);
-                    _eventType = _tileRefence._event;
-                    _trackType = _tileRefence._track;
+                    _promptButton.DOFade(1, 0.5f);
+                    _eventType = _tileRefrence._event;
+                    _trackType = _tileRefrence._track;
                     break;
                 default:
-                    _promptButton.SetActive(true);
-                    _eventType = _tileRefence._event;
                     break;
 
             }
-            if (_tileRefence._event != EventCollision.events.TrackEnd) // MAKE SURE IT AFFECTS OTHER INTERACTABLES TOO
-            {
-                _promptButton.SetActive(false);
-            }
-            if (_tracked && _tileRefence._event != EventCollision.events.Track)
+            if (_tracked && _tileRefrence._event != EventCollision.events.Track)
             {
                 _tracked = false;
                 ResetTrackImages();
@@ -94,7 +88,7 @@ public class DownwardRaycast : MonoBehaviour
 
     private void ShowTrackImage()
     {
-        switch(_tileRefence._track)
+        switch(_tileRefrence._track)
         {
             case EventCollision.trackType.Camel:
                 _TrackImage.sprite = _TrackImagesRef[(int)target.CAMEL];
@@ -114,7 +108,7 @@ public class DownwardRaycast : MonoBehaviour
 
     private void ShowTrackDirection()
     {
-        switch(_tileRefence._trackDirection)
+        switch(_tileRefrence._trackDirection)
         {
             case EventCollision.trackDirection.Up:
                 _UpArrow.DOFade(1, 0.5f);
@@ -152,9 +146,9 @@ public class DownwardRaycast : MonoBehaviour
             {
                 case EventCollision.trackType.Well:
                     _resources.increaseResource(ResourceBars.stat.Hydration, 20);
-                    _tileRefence._event = EventCollision.events.None;
+                    _tileRefrence._event = EventCollision.events.None;
                     _eventType = EventCollision.events.None;
-                    _promptButton.SetActive(false);
+                    _promptButton.DOFade(0, 0.5f);
                     var colliders = Physics.OverlapBox(transform.position, Vector3.one * 1.75f / 2f);
                     foreach (var collider in colliders)
                     {
