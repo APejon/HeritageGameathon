@@ -28,6 +28,7 @@ public class SnakeCombat : MonoBehaviour
     private void Start()
     {
         initialOrthographicSize = Camera.main.orthographicSize;
+        FindAnyObjectByType<ResourceBars>().death += OnDeath;
     }
 
     private void Update()
@@ -82,6 +83,12 @@ public class SnakeCombat : MonoBehaviour
                 });
             }
         }
+    }
+
+    private void OnDeath()
+    {
+        FindAnyObjectByType<ResourceBars>().death -= OnDeath;
+        enabled = false;
     }
 
 

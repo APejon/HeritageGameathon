@@ -59,4 +59,18 @@ public class DayNightCycle : MonoBehaviour
             OnNightStart?.Invoke();
         }
     }
+
+    public void MakeDay()
+    {
+        characterMovement.onMove -= OnMove;
+        DOTween.To(() => sunLight1.colorTemperature, x => sunLight1.colorTemperature = x,
+            Mathf.Lerp(dayTemperature, nightTemperature, 0), 2);
+        DOTween.To(() => sunLight2.colorTemperature, x => sunLight2.colorTemperature = x,
+            Mathf.Lerp(dayTemperature, nightTemperature, 0), 2);
+        DOTween.To(() => sunLight1.intensity, x => sunLight1.intensity = x,
+            Mathf.Lerp(sunLight1DayNightIntensity.x, sunLight1DayNightIntensity.y, 0), 2);
+        DOTween.To(() => sunLight2.intensity, x => sunLight2.intensity = x,
+            Mathf.Lerp(sunLight2DayNightIntensity.x, sunLight2DayNightIntensity.y, 0), 2);
+        characterSpriteRenderer.DOColor(Color.Lerp(Color.white, characterSpriteNightColor, 0), 2);
+    }
 }

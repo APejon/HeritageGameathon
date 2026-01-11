@@ -1,11 +1,9 @@
+using System;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
-using Unity.VisualScripting;
-using Mono.Cecil;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -23,13 +21,13 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private SnakeCombat snakeCombat;
     [SerializeField] private QuickSandInteraction quickSandInteraction;
     private DownwardRaycast _raycastRef;
+    private ResourceBars _resourceRef;
     private Animator animator;
     private bool isMoving;
-    private TweenerCore<Vector3, Vector3, VectorOptions> snakeTween;
-    private Vector3 targetPosition;
-    private int steps;
-    private ResourceBars _resourceRef;
     public Action onMove;
+    private TweenerCore<Vector3, Vector3, VectorOptions> snakeTween;
+    private int steps;
+    private Vector3 targetPosition;
 
 
     private void Awake()
@@ -37,6 +35,11 @@ public class CharacterMovement : MonoBehaviour
         _raycastRef = GetComponent<DownwardRaycast>();
         animator = GetComponent<Animator>();
         _resourceRef = GetComponent<ResourceBars>();
+    }
+
+    private void Start()
+    {
+        _resourceRef.death += OnDeath;
     }
 
     private void Update()
@@ -115,6 +118,7 @@ public class CharacterMovement : MonoBehaviour
                     _resourceRef.decreaseResource(ResourceBars.stat.Hunger, 10);
                     _resourceRef.decreaseResource(ResourceBars.stat.Hydration, 10);
                 }
+
                 ResetInputPrompts();
                 visibilityToggler.ToggleVisibility();
                 _raycastRef.castARay();
@@ -134,8 +138,10 @@ public class CharacterMovement : MonoBehaviour
                     quickSandInteraction.StartDrowning();
                     quickSandInteraction.OnEscapedQuicksand += OnEscapedQuicksand;
                 }
+
                 onMove?.Invoke();
             }
+
             isMoving = false;
         }
         else
@@ -165,6 +171,17 @@ public class CharacterMovement : MonoBehaviour
         sInputPrompt.DOFade(0, 0.1f);
         dInputPrompt.DOFade(0, 0.1f);
         CharacterSpriteRenderer.sprite = walkIdleSprite;
+    }
+
+    private void OnDeath()
+    {
+        enabled = false;
+        _resourceRef.death -= OnDeath;
+        CharacterSpriteRenderer.DOFade(0, 1f);
+        wInputPrompt.gameObject.SetActive(false);
+        aInputPrompt.gameObject.SetActive(false);
+        sInputPrompt.gameObject.SetActive(false);
+        dInputPrompt.gameObject.SetActive(false);
     }
 
 
