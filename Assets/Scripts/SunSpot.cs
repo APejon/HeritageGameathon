@@ -36,6 +36,7 @@ public class SunSpot : MonoBehaviour
             DOTween.To(() => isometricCamera.Lens.OrthographicSize,
                 value => isometricCamera.Lens.OrthographicSize = value, 1.68f, 0.2f);
             AudioManager.instance.playSFX(AudioManager.soundEffect.BURNING, true);
+            MessagesConcept.instance.SetText("Standing in a sunspot, don't stay too long");
         }
     }
 
@@ -59,6 +60,7 @@ public class SunSpot : MonoBehaviour
             {
                 time = 0;
                 resourceBars.decreaseResource(ResourceBars.stat.Hydration, 10);
+                MessagesConcept.instance.SetText("Heat stroked, 10 hydration lost");
             }
         }
     }
