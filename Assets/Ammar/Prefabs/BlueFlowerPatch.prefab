@@ -234,6 +234,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: flower_purpleB (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6328531262813390386, guid: a800c4d2733ec174fa438db423e1216f, type: 3}
+      propertyPath: m_TagString
+      value: Flower
+      objectReference: {fileID: 0}
     - target: {fileID: 6672264318224047240, guid: a800c4d2733ec174fa438db423e1216f, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.3223

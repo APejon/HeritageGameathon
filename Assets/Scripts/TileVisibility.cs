@@ -10,7 +10,11 @@ public class TileVisibility : MonoBehaviour, IVisibility
     private void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
-        if (IsVisibleOnStart)
+        if (GetComponent<EventCollision>()._event == EventCollision.events.Boundary)
+        {
+            MakeVisible();
+        }
+        else if (IsVisibleOnStart)
         {
             MakeVisible();
         }

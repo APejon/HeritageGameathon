@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8889085778405107274}
   - component: {fileID: 2843988669672611352}
+  - component: {fileID: 7460674098459772197}
   m_Layer: 0
   m_Name: FalconStand
   m_TagString: Falcon
@@ -46,6 +47,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PropVisibility
   <IsVisibleOnStart>k__BackingField: 0
+--- !u!65 &7460674098459772197
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4585817061424182281}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.7964661, z: 1}
+  m_Center: {x: 0, y: 0.92255104, z: 0}
 --- !u!1001 &6352820311526349338
 PrefabInstance:
   m_ObjectHideFlags: 0
