@@ -25,9 +25,9 @@ public class VictorySequenceEnabler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        MessagesConcept.instance.SetText("Village reached! congratulations!");
         if (other.gameObject.CompareTag("Player"))
         {
+            MessagesConcept.instance.SetText("Village reached! congratulations!");
             var findObjectsByType =
                 FindObjectsByType<PropVisibility>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
             foreach (var propVisibility in findObjectsByType)
