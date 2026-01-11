@@ -13,7 +13,7 @@ public class SunSpot : MonoBehaviour
     private void Awake()
     {
         GetComponent<Collider>().isTrigger = true;
-        initialOrthographicSize = Camera.main.orthographicSize;
+        initialOrthographicSize = 3.28f;
     }
 
     private void Start()

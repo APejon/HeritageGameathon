@@ -25,7 +25,7 @@ public class QuickSandInteraction : MonoBehaviour
 
     private void Start()
     {
-        initialOrthographicSize = Camera.main.orthographicSize;
+        initialOrthographicSize = 3.28f;
         drownAmount = 0f;
         FindAnyObjectByType<ResourceBars>().death += OnDeath;
     }

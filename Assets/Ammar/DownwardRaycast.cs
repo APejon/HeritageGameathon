@@ -30,7 +30,7 @@ public class DownwardRaycast : MonoBehaviour
 
     private void Awake()
     {
-        initialOrthographicSize = Camera.main.orthographicSize;
+        initialOrthographicSize = 3.28f;
     }
 
     private void Start()

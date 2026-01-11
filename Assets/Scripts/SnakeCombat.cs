@@ -1,7 +1,6 @@
 ﻿using System;
 using DG.Tweening;
 using Unity.Cinemachine;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -28,7 +27,7 @@ public class SnakeCombat : MonoBehaviour
 
     private void Start()
     {
-        initialOrthographicSize = Camera.main.orthographicSize;
+        initialOrthographicSize = 3.28f;
         FindAnyObjectByType<ResourceBars>().death += OnDeath;
     }
 
