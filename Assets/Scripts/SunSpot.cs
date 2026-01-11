@@ -14,6 +14,10 @@ public class SunSpot : MonoBehaviour
     {
         GetComponent<Collider>().isTrigger = true;
         initialOrthographicSize = Camera.main.orthographicSize;
+    }
+
+    private void Start()
+    {
         DayNightCycle.Instance.OnNightStart += OnNightStart;
         DayNightCycle.Instance.OnDayStart += OnDayStart;
     }
