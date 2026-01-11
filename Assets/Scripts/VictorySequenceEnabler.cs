@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.Playables;
 
 public class VictorySequenceEnabler : MonoBehaviour
 {
+    public static Action OnVictorySequenceComplete;
     [SerializeField] private PlayableDirector victorySequence;
     private Collider col;
     private Rigidbody rb;
@@ -40,6 +42,16 @@ public class VictorySequenceEnabler : MonoBehaviour
             }
 
             victorySequence.gameObject.SetActive(true);
+            victorySequence.stopped += VictorySequenceOnstopped;
+
+
+            DayNightCycle.Instance.MakeDay();
         }
+    }
+
+    private void VictorySequenceOnstopped(PlayableDirector director)
+    {
+        director.stopped -= VictorySequenceOnstopped;
+        OnVictorySequenceComplete?.Invoke();
     }
 }

@@ -27,6 +27,7 @@ public class QuickSandInteraction : MonoBehaviour
     {
         initialOrthographicSize = Camera.main.orthographicSize;
         drownAmount = 0f;
+        FindAnyObjectByType<ResourceBars>().death += OnDeath;
     }
 
     private void Update()
@@ -71,9 +72,18 @@ public class QuickSandInteraction : MonoBehaviour
             var position = transform.position;
             position.y -= drownSpeed * Time.deltaTime;
             if (position.y < -0.5)
+            {
                 position.y = -0.5f;
+            }
+
             transform.position = position;
         }
+    }
+
+    private void OnDeath()
+    {
+        FindAnyObjectByType<ResourceBars>().death -= OnDeath;
+        enabled = false;
     }
 
 
