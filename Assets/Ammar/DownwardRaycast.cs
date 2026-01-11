@@ -78,6 +78,7 @@ public class DownwardRaycast : MonoBehaviour
                     _tracked = true;
                     _Compass.DOFade(1, 0.5f);
                     AudioManager.instance.playSFX(AudioManager.soundEffect.ZOOM, true);
+                    MessagesConcept.instance.SetText("Tracks spotted, where does it lead?");
                     break;
                 case EventCollision.events.TrackEnd:
                     _promptButton.DOFade(1, 0.5f);
@@ -92,6 +93,7 @@ public class DownwardRaycast : MonoBehaviour
                             value => isometricCamera.Lens.OrthographicSize = value, 1.68f, 0.2f)
                         .OnComplete(() => _movementRef.onMove += zoomOut);
                     AudioManager.instance.playSFX(AudioManager.soundEffect.ZOOM, true);
+                    MessagesConcept.instance.SetText("You found a herb, is it safe to use?");
                     break;
                 case EventCollision.events.None:
                     _promptButton.DOFade(0, 0.5f);
@@ -111,6 +113,7 @@ public class DownwardRaycast : MonoBehaviour
 
     public void zoomOut()
     {
+        Debug.Log("PASSED");
         _movementRef.onMove -= zoomOut;
         DOTween.To(() => isometricCamera.Lens.OrthographicSize,
             value => isometricCamera.Lens.OrthographicSize = value, initialOrthographicSize, 0.2f);
@@ -207,6 +210,7 @@ public class DownwardRaycast : MonoBehaviour
                     falconAnimator.gameObject.SetActive(true);
                     falconAnimator.CrossFade("Landing", 0f);
                     DOVirtual.DelayedCall(4, () => falconAnimator.gameObject.SetActive(false));
+                    MessagesConcept.instance.SetText("Game meat obtained, 40 hunger restored");
                     break;
                 case EventCollision.trackType.Oasis:
                     _resources.increaseResource(ResourceBars.stat.Hunger, 20);
@@ -221,6 +225,7 @@ public class DownwardRaycast : MonoBehaviour
                     _eventType = EventCollision.events.None;
                     _promptButton.DOFade(0, 0.5f);
                     AudioManager.instance.playSFX(AudioManager.soundEffect.DRINK, true);
+                    MessagesConcept.instance.SetText("You found a well, 40 hydration restored");
                     var colliders = Physics.OverlapBox(transform.position, Vector3.one * 1.75f / 2f);
                     foreach (var collider in colliders)
                     {
@@ -246,15 +251,17 @@ public class DownwardRaycast : MonoBehaviour
             switch (_plantType)
             {
                 case EventCollision.plantType.Medicinal:
-                    _resources.increaseResource(ResourceBars.stat.Health, 10);
+                    _resources.increaseResource(ResourceBars.stat.Health, 20);
                     _tileRefrence._event = EventCollision.events.None;
                     _eventType = EventCollision.events.None;
                     _promptButton.DOFade(0, 0.5f);
+                    MessagesConcept.instance.SetText("Medicinal plant! you gained 20 health");
                     break;
                 case EventCollision.plantType.Poisonous:
                     _resources.decreaseResource(ResourceBars.stat.Health, 10);
                     _tileRefrence._event = EventCollision.events.None;
                     _eventType = EventCollision.events.None;
+                    MessagesConcept.instance.SetText("Poisonous plant! you lost 10 health");
                     _promptButton.DOFade(0, 0.5f);
                     break;
             }

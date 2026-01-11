@@ -1,6 +1,7 @@
 ﻿using System;
 using DG.Tweening;
 using Unity.Cinemachine;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -45,6 +46,7 @@ public class SnakeCombat : MonoBehaviour
             if (Vector3.Distance(snake.transform.position, transform.position) < 0.1f)
             {
                 GetComponent<CinemachineImpulseSource>().GenerateImpulse();
+                MessagesConcept.instance.SetText("The snake bit you, 10 health lost");
                 OnSnakeBite?.Invoke();
                 forwardsBackwards = false;
                 snake.transform.position = transform.position;
@@ -108,6 +110,7 @@ public class SnakeCombat : MonoBehaviour
             fInputPrompt.DOFade(1, 0.2f);
             DOTween.To(() => isometricCamera.Lens.OrthographicSize,
                 value => isometricCamera.Lens.OrthographicSize = value, 1.68f, 0.2f);
+            MessagesConcept.instance.SetText("Snake attack! fight it off!");
             return true;
         }
 

@@ -117,8 +117,8 @@ public class CharacterMovement : MonoBehaviour
                 {
                     _resourceRef.decreaseResource(ResourceBars.stat.Hunger, 10);
                     _resourceRef.decreaseResource(ResourceBars.stat.Hydration, 10);
+                    MessagesConcept.instance.SetText("Time passed, hydration and hunger used");
                 }
-
                 ResetInputPrompts();
                 visibilityToggler.ToggleVisibility();
                 _raycastRef.castARay();
