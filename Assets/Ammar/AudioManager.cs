@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -11,7 +12,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip[] _sfxClips;
     private int _musicIndex;
     private int _atmosphereIndex;
-    private int _sfxIndex;
+    private Coroutine _musicCoroutine;
     public static AudioManager instance;
 
     public enum soundEffect
@@ -38,11 +39,41 @@ public class AudioManager : MonoBehaviour
     {
         _musicIndex = 0;
         _atmosphereIndex = 0;
-        _sfxIndex = 0;
         _music.clip = _musicClips[_musicIndex];
         _music.Play();
+        _musicCoroutine = StartCoroutine(ChangeMusic());
         _atmosphere.clip = _atmosphereClips[_atmosphereIndex];
         _atmosphere.Play();
+        StartCoroutine(ChangeAtmosphere());
+    }
+
+    IEnumerator ChangeMusic()
+    {
+        yield return new WaitForSeconds(_musicClips[_musicIndex].length);
+        _musicIndex++;
+        if (_musicIndex > _musicClips.Length - 2)
+            _musicIndex = 0;
+        _music.clip = _musicClips[_musicIndex];
+        _music.Play();
+        yield return ChangeMusic();
+    }
+
+    IEnumerator ChangeAtmosphere()
+    {
+        yield return new WaitForSeconds(_atmosphereClips[_atmosphereIndex].length);
+        _atmosphereIndex++;
+        if (_atmosphereIndex > _atmosphereClips.Length - 1)
+            _atmosphereIndex = 0;
+        _atmosphere.clip = _atmosphereClips[_atmosphereIndex];
+        _atmosphere.Play();
+        yield return ChangeAtmosphere();
+    }
+
+    public void playGameOver()
+    {
+        StopCoroutine(_musicCoroutine);
+        _music.clip = _musicClips[2];
+        _music.Play();
     }
 
     public void playSFX(soundEffect sound, bool play)
@@ -77,4 +108,11 @@ public class AudioManager : MonoBehaviour
         _footSteps.pitch = Random.Range(0.8f, 1.2f);
     }
 
+    public void stopAllSources()
+    {
+        _music.Stop();
+        _atmosphere.Stop();
+        _sfx.Stop();
+        _footSteps.Stop();
+    }
 }

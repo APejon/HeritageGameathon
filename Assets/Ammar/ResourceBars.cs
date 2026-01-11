@@ -19,6 +19,7 @@ public class ResourceBars : MonoBehaviour
     private Coroutine _resourceSubBarRoutine;
     private SnakeCombat _snakeCombat;
     private QuickSandInteraction _quicksandCombat;
+    public Action death;
 
     public enum stat
     {
@@ -136,13 +137,29 @@ public class ResourceBars : MonoBehaviour
                     // setBar(_bars[(int)stat.Health], _health);
                     break;
                 case stat.Hunger:
-                    _hunger = Mathf.Clamp(_hunger - 10, 0, 100);
-                    setBar(_mainBar[1][(int)(_hunger / _maxStat * 10)], _subBar[1][(int)(_hunger / _maxStat * 10)], 0);
+                    if (amount > _hunger)
+                    {
+                        _health = Mathf.Clamp(_health - 10, 0, 100);
+                        setBar(_mainBar[0][(int)(_health / _maxStat * 10)], _subBar[0][(int)(_health / _maxStat * 10)], 0);
+                    }
+                    else
+                    {
+                        _hunger = Mathf.Clamp(_hunger - 10, 0, 100);
+                        setBar(_mainBar[1][(int)(_hunger / _maxStat * 10)], _subBar[1][(int)(_hunger / _maxStat * 10)], 0);
+                    }
                     // setBar(_bars[(int)stat.Hunger], _hunger);
                     break;
                 case stat.Hydration:
-                    _hydration = Mathf.Clamp(_hydration - 10, 0, 100);
-                    setBar(_mainBar[2][(int)(_hydration / _maxStat * 10)], _subBar[2][(int)(_hydration / _maxStat * 10)], 0);
+                    if (amount > _hydration)
+                    {
+                        _health = Mathf.Clamp(_health - 10, 0, 100);
+                        setBar(_mainBar[0][(int)(_health / _maxStat * 10)], _subBar[0][(int)(_health / _maxStat * 10)], 0);
+                    }
+                    else
+                    {
+                        _hydration = Mathf.Clamp(_hydration - 10, 0, 100);
+                        setBar(_mainBar[2][(int)(_hydration / _maxStat * 10)], _subBar[2][(int)(_hydration / _maxStat * 10)], 0);
+                    }
                     // setBar(_bars[(int)stat.Hydration], _hydration);
                     break;
                 default:
@@ -150,6 +167,8 @@ public class ResourceBars : MonoBehaviour
                     break;
             }
             amount -= 10;
+            if (_health <= 0)
+                death?.Invoke();
         }
     }
 
