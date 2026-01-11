@@ -21,7 +21,7 @@ public class DayNightCycle : MonoBehaviour
     public Action OnNightStart;
 
 
-    public bool IsNight => accumulatedSteps % stepsInADay >= stepsInADay / 2;
+    public bool IsNight => Mathf.PingPong(accumulatedSteps / (float)stepsInADay, 1) >= 0.5f;
     public bool IsDay => !IsNight;
 
 
