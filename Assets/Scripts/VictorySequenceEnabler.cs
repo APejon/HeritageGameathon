@@ -25,7 +25,7 @@ public class VictorySequenceEnabler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        MessagesConcept.instance.SetText("Village reached! congratulations");
+        MessagesConcept.instance.SetText("Village reached! congratulations!");
         if (other.gameObject.CompareTag("Player"))
         {
             var findObjectsByType =

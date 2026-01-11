@@ -42,6 +42,8 @@ public class MainMenu : MonoBehaviour
 
     private void OnPlayButtonClicked()
     {
+        if (AudioManager.instance)
+            AudioManager.instance.stopAllSources();
         playButton.onClick.RemoveListener(OnPlayButtonClicked);
         SceneManager.LoadScene("Level1");
     }
