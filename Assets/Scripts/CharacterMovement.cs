@@ -138,6 +138,8 @@ public class CharacterMovement : MonoBehaviour
                     quickSandInteraction.StartDrowning();
                     quickSandInteraction.OnEscapedQuicksand += OnEscapedQuicksand;
                 }
+
+                onMove?.Invoke();
             }
 
             isMoving = false;
