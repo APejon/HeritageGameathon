@@ -138,8 +138,6 @@ public class CharacterMovement : MonoBehaviour
                     quickSandInteraction.StartDrowning();
                     quickSandInteraction.OnEscapedQuicksand += OnEscapedQuicksand;
                 }
-
-                onMove?.Invoke();
             }
 
             isMoving = false;
@@ -216,6 +214,25 @@ public class CharacterMovement : MonoBehaviour
         }
 
         return EventCollision.events.None;
+    }
+
+    private static EventCollision.trackType RaycastForTrackType(Vector3 newPosition)
+    {
+        var raycast = Physics.Raycast(new Ray(newPosition, Vector3.down), out var hit, 100f,
+            1 << LayerMask.NameToLayer("Tile"));
+
+        if (raycast)
+        {
+            var tileEvent = hit.transform.gameObject.GetComponent<EventCollision>();
+            if (tileEvent == null)
+            {
+                return EventCollision.trackType.Camel;
+            }
+
+            return tileEvent._track;
+        }
+
+        return EventCollision.trackType.Camel;
     }
 
     private void ResetInputPrompts()
