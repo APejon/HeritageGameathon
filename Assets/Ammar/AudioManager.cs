@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     private int _musicIndex;
     private int _atmosphereIndex;
     private Coroutine _musicCoroutine;
+    private Coroutine _atmosphereCoroutine;
     public static AudioManager instance;
 
     public enum soundEffect
@@ -44,7 +45,7 @@ public class AudioManager : MonoBehaviour
         _musicCoroutine = StartCoroutine(ChangeMusic());
         _atmosphere.clip = _atmosphereClips[_atmosphereIndex];
         _atmosphere.Play();
-        StartCoroutine(ChangeAtmosphere());
+        _atmosphereCoroutine = StartCoroutine(ChangeAtmosphere());
     }
 
     IEnumerator ChangeMusic()
@@ -110,6 +111,8 @@ public class AudioManager : MonoBehaviour
 
     public void stopAllSources()
     {
+        StopCoroutine(_musicCoroutine);
+        StopCoroutine(_atmosphereCoroutine);
         _music.Stop();
         _atmosphere.Stop();
         _sfx.Stop();

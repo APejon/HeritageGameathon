@@ -46,7 +46,7 @@ public class SnakeCombat : MonoBehaviour
             if (Vector3.Distance(snake.transform.position, transform.position) < 0.1f)
             {
                 GetComponent<CinemachineImpulseSource>().GenerateImpulse();
-                MessagesConcept.instance.SetText("The snake bit you, 10 health lost");
+                MessagesConcept.instance.SetText("The snake bit you, 10 health lost!");
                 OnSnakeBite?.Invoke();
                 forwardsBackwards = false;
                 snake.transform.position = transform.position;

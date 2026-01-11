@@ -139,7 +139,7 @@ public class ResourceBars : MonoBehaviour
                 case stat.Hunger:
                     if (amount > _hunger)
                     {
-                        MessagesConcept.instance.SetText("Hunger depleted, health is lost instead");
+                        MessagesConcept.instance.SetText("Hunger depleted, health is lost instead.");
                         _health = Mathf.Clamp(_health - 10, 0, 100);
                         setBar(_mainBar[0][(int)(_health / _maxStat * 10)], _subBar[0][(int)(_health / _maxStat * 10)], 0);
                     }
@@ -153,7 +153,7 @@ public class ResourceBars : MonoBehaviour
                 case stat.Hydration:
                     if (amount > _hydration)
                     {
-                        MessagesConcept.instance.SetText("Hydration depleted, health is lost instead");
+                        MessagesConcept.instance.SetText("Hydration depleted, health is lost instead.");
                         _health = Mathf.Clamp(_health - 10, 0, 100);
                         setBar(_mainBar[0][(int)(_health / _maxStat * 10)], _subBar[0][(int)(_health / _maxStat * 10)], 0);
                     }

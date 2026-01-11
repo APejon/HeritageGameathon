@@ -59,6 +59,7 @@ public class CharacterMovement : MonoBehaviour
                 wInputPrompt.DOFade(0, 0.05f);
                 sInputPrompt.DOFade(0, 0.05f);
                 aInputPrompt.DOFade(0, 0.05f);
+                _raycastRef.setEvent();
             }
             else if (Keyboard.current.aKey.wasPressedThisFrame)
             {
@@ -71,6 +72,7 @@ public class CharacterMovement : MonoBehaviour
                 wInputPrompt.DOFade(0, 0.05f);
                 sInputPrompt.DOFade(0, 0.05f);
                 dInputPrompt.DOFade(0, 0.05f);
+                _raycastRef.setEvent();
             }
             else if (Keyboard.current.wKey.wasPressedThisFrame)
             {
@@ -83,6 +85,7 @@ public class CharacterMovement : MonoBehaviour
                 aInputPrompt.DOFade(0, 0.05f);
                 sInputPrompt.DOFade(0, 0.05f);
                 dInputPrompt.DOFade(0, 0.05f);
+                _raycastRef.setEvent();
             }
             else if (Keyboard.current.sKey.wasPressedThisFrame)
             {
@@ -95,6 +98,7 @@ public class CharacterMovement : MonoBehaviour
                 wInputPrompt.DOFade(0, 0.05f);
                 aInputPrompt.DOFade(0, 0.05f);
                 dInputPrompt.DOFade(0, 0.05f);
+                _raycastRef.setEvent();
             }
 
             // CharacterSpriteRenderer.sprite = walkIdleSprite;
@@ -117,7 +121,7 @@ public class CharacterMovement : MonoBehaviour
                 {
                     _resourceRef.decreaseResource(ResourceBars.stat.Hunger, 10);
                     _resourceRef.decreaseResource(ResourceBars.stat.Hydration, 10);
-                    MessagesConcept.instance.SetText("Time passed, hydration and hunger used");
+                    MessagesConcept.instance.SetText("Time passed, hydration and hunger used.");
                 }
                 ResetInputPrompts();
                 visibilityToggler.ToggleVisibility();

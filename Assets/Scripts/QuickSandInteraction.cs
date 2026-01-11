@@ -40,7 +40,7 @@ public class QuickSandInteraction : MonoBehaviour
         if (drownAmount > drownThreshold)
         {
             OnTakenDamage?.Invoke();
-            MessagesConcept.instance.SetText("You're drowning! 10 health lost");
+            MessagesConcept.instance.SetText("You're drowning! 10 health lost!");
             drownAmount = 0;
         }
 
@@ -97,6 +97,6 @@ public class QuickSandInteraction : MonoBehaviour
         fInputPrompt.DOFade(1, 0.2f);
         DOTween.To(() => isometricCamera.Lens.OrthographicSize,
             value => isometricCamera.Lens.OrthographicSize = value, 1.68f, 0.2f);
-        MessagesConcept.instance.SetText("Quicksand! get out quickly");
+        MessagesConcept.instance.SetText("Quicksand! get out quickly!");
     }
 }
